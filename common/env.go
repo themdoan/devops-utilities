@@ -1,8 +1,8 @@
-package env
+package common
 
 import "os"
 
-func Get(key, fallback string) string {
+func GetEnv(key, fallback string) string {
 	if value, ok := os.LookupEnv(key); ok {
 		return value
 	}

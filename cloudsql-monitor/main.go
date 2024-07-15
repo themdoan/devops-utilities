@@ -10,7 +10,8 @@ import (
 
 	cli "github.com/urfave/cli/v2"
 
-	"github.com/themdoan/devops-utilities/cloudtrace"
+	"github.com/themdoan/devops-utilities/cloudsql-monitor/cloudtrace"
+	"github.com/themdoan/devops-utilities/common"
 )
 
 func main() {
@@ -86,7 +87,7 @@ func cloudsqlMonitor(cliCtx *cli.Context) error {
 	entries, client_err := client.ListTraces(listCtx, &cloudtrace.TracesQuery{
 		ProjectID: projectID,
 		Limit:     10,
-		Filter:    "latency:3s",
+		Filter:    common.GetEnv("TRACE_FILTER", "latency:3s"),
 		TimeRange: cloudtrace.TimeRange{
 			From: time.Now().Add(-intervalTime),
 			To:   time.Now(),
